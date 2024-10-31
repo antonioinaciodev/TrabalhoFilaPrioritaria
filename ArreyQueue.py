@@ -1,7 +1,7 @@
 class ArreyQueue:
     def __init__(self, limit):
-        self.limit = limit  # Limite máximo da fila
-        self.queue = []  # Usando uma lista para simular a fila
+        self.limit = limit
+        self.queue = []
         self.common = 0
         self.priority = 0
         self.atendc = 0
@@ -18,36 +18,34 @@ class ArreyQueue:
             self.priority += 1
         else:
             self.common += 1
-        self.queue.append((data, idade))  # Armazena uma tupla (data, idade)
+        self.queue.append((data, idade))
     
     def dequeue(self):
         if self.isempty():
             raise IndexError("Fila está vazia")
         
-        # Tenta atender um prioritário primeiro
         for i in range(len(self.queue)):
             if self.queue[i][1] >= 60:
-                return self._remove_at(i)  # Remove e retorna o elemento prioritário
+                return self._remove_at(i)
         
-        # Se não houver prioritário, atende o primeiro comum
-        return self._remove_at(0)  # Remove e retorna o primeiro comum
+        return self._remove_at(0)
     
     def _remove_at(self, index):
         data = self.queue[index]
-        del self.queue[index]  # Remove o elemento na posição index
-        if data[1] >= 60:  # Atualiza contadores de atendidos
+        del self.queue[index]
+        if data[1] >= 60:
             self.priority -= 1
             self.atendp += 1
         else:
             self.common -= 1
             self.atendc += 1
-        return data[0]  # Retorna o nome do atendido
+        return data[0]
     
     def peek(self):
         if self.isempty():
             raise IndexError("Fila está vazia")
         else:
-            return self.queue[0][0]  # Retorna o primeiro elemento
+            return self.queue[0][0]
     
     def atendidos(self):
         return self.atendc + self.atendp
@@ -70,7 +68,6 @@ class ArreyQueue:
             raise IndexError("Fila está vazia")
         return ' '.join([item[0] for item in self.queue])
 
-# Código principal
 if __name__ == '__main__':
     limite = int(input("Defina o limite da fila: "))
     fila = ArreyQueue(limite)
